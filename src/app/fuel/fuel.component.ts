@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BalanceService } from '../balance.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-fuel',
@@ -12,6 +13,14 @@ fuel;
 
   ngOnInit(){
     this.fuel = this.balanceservice.fuel
+  }
+
+  onCredit(){
+    console.log
+  }
+
+  onDebit(){
+    console.log
   }
 
 }

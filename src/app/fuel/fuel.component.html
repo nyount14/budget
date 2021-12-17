@@ -1,3 +1,16 @@
 <div class="container">
-  {{fuel}}
+
+  <h1>Current Fuel Balance = {{fuel | currency}}</h1>
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      placeholder="amount"
+      aria-label="amount"
+      name="amount"
+    />
+  </div>
+  <div>
+    <button type="button" class="btn btn-primary" (click)="onCredit()">Credit</button>
+    <button type="button" class="btn btn-danger" (click)="onDebit()">Debit</button>
+  </div>
 </div>
