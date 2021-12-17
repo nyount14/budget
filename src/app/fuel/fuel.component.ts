@@ -8,19 +8,25 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./fuel.component.css']
 })
 export class FuelComponent implements OnInit {
-fuel;
+balance;
+amount;
+
   constructor(private balanceservice: BalanceService) { }
 
   ngOnInit(){
-    this.fuel = this.balanceservice.fuel
+    this.balance = this.balanceservice.fuel
   }
 
   onCredit(){
-    console.log
+    this.balance = this.balance + this.amount;
   }
 
   onDebit(){
-    console.log
+    this.balance = this.balance - this.amount;
+  }
+
+  onUpdate(amount){
+    this.amount = amount.target.value;
   }
 
 }

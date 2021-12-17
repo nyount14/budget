@@ -1,17 +1,36 @@
 <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
   <div class="container">
     <a class="navbar-brand" href="#">
-      <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dollabill-1572984088.jpg" alt="Money Logo" style="width:100px;" class="rounded-pill">
+      <img
+        src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dollabill-1572984088.jpg"
+        alt="Money Logo"
+        style="width: 100px"
+        class="rounded-pill"
+      />
     </a>
 
-    <button #navbarToggler class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" (click)="isShown = !isShown" [attr.aria-expanded]="isShown"  aria-label="Toggle navigation">
+    <button
+      #navbarToggler
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      (click)="isShown = !isShown"
+      [attr.aria-expanded]="isShown"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" [ngClass]="{ 'show': isShown }" id="navbarSupportedContent" >
+    <div
+      class="collapse navbar-collapse"
+      [ngClass]="{ show: isShown }"
+      id="navbarSupportedContent"
+    >
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a  class="nav-link" routerLink='fuel'>Fuel</a>
+          <a class="nav-link" routerLink="fuel">Fuel</a>
         </li>
         <li class="nav-item">
           <a href="#food" class="nav-link">Food</a>
