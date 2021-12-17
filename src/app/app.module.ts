@@ -6,12 +6,16 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FuelComponent } from './fuel/fuel.component';
 import { FormsModule } from '@angular/forms';
+import { FoodComponent } from './food/food.component';
+import { FunComponent } from './fun/fun.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FuelComponent
+    FuelComponent,
+    FoodComponent,
+    FunComponent
   ],
   imports: [
     BrowserModule,
