@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./fuel.component.css']
 })
 export class FuelComponent implements OnInit {
+
 balance = 0
 amount;
 
