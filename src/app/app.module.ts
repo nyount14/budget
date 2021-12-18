@@ -8,6 +8,7 @@ import { FuelComponent } from './fuel/fuel.component';
 import { FormsModule } from '@angular/forms';
 import { FoodComponent } from './food/food.component';
 import { FunComponent } from './fun/fun.component';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FunComponent } from './fun/fun.component';
     NavbarComponent,
     FuelComponent,
     FoodComponent,
-    FunComponent
+    FunComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
