@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Transaction } from '../transaction.model';
 
 @Component({
   selector: 'app-fuel',
@@ -13,15 +14,19 @@ export class FuelComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.balance;
+    this.http
+      .get('https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json')
+      .subscribe((posts) => {
+        console.log(posts);
+      });
   }
 
-  onCredit() {
-    this.balance = this.balance + parseInt(this.amount);
+  onCreatePost(postData: { amount: number; description: string; date: Date }) {
+    // this.balance = this.balance + parseInt(this.amount);
     this.http
-      .post(
+      .post<Transaction>(
         'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json',
-        {balance: this.balance}
+        postData
       )
       .subscribe((responseData) => {
         console.log(responseData);
