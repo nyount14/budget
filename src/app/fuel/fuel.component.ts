@@ -21,7 +21,13 @@ export class FuelComponent implements OnInit {
       });
   }
 
-  onCreatePost(postData: { amount: number; description: string; date: Date }) {
+  onCreatePost(postData: {
+    amount: number;
+    description: string;
+    date: Date;
+    transactionType: string
+  }) {
+    console.log(postData)
     // this.balance = this.balance + parseInt(this.amount);
     this.http
       .post<Transaction>(
