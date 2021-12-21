@@ -4,5 +4,6 @@ export class Transaction {
     public description: string,
     public date: Date,
     public transactionType: string,
+    public id?: string,
   ) {}
 }

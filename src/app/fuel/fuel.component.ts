@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Transaction } from '../transaction.model';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-fuel',
@@ -10,27 +11,31 @@ import { Transaction } from '../transaction.model';
 export class FuelComponent implements OnInit {
   balance = 0;
   amount;
+  loadedTransactions: Transaction[] = [];
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.http
-      .get('https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json')
-      .subscribe((posts) => {
-        console.log(posts);
+      .get<Transaction>('https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json')
+      .pipe(map(responseData => {
+        const postsArray: Transaction[] = [];
+        for (const key in responseData ) {
+          if (responseData.hasOwnProperty(key))
+          postsArray.push({ ...responseData[key], id: key })
+        }
+        return postsArray;
+      }))
+      .subscribe(posts => {
+        this.loadedTransactions = posts;
       });
   }
 
-  onCreatePost(postData: {
-    amount: number;
-    description: string;
-    date: Date;
-    transactionType: string
-  }) {
+  onCreatePost(postData) {
     console.log(postData)
     // this.balance = this.balance + parseInt(this.amount);
     this.http
-      .post<Transaction>(
+      .post<{ name: string }>(
         'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json',
         postData
       )
@@ -47,3 +52,4 @@ export class FuelComponent implements OnInit {
     this.amount = amount.target.value;
   }
 }
+
