@@ -1,0 +1,17 @@
+.header {
+  text-align: center;
+  background: linear-gradient(black,white );
+  color: white;
+};
+
+ em {
+   font-size: 40px;
+   font-style: italic;
+
+ }
+
+ form{
+  padding: 60px;
+  font-style: oblique;
+  font-size: 30px;
+ }

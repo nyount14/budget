@@ -10,6 +10,7 @@ import { FoodComponent } from './food/food.component';
 import { FunComponent } from './fun/fun.component';
 import { MainComponent } from './main/main.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     FuelComponent,
     FoodComponent,
     FunComponent,
-    MainComponent
+    MainComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
