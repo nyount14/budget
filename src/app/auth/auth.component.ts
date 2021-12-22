@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
+login = false
 
   constructor() { }
 

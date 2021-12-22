@@ -8,7 +8,6 @@ import { FuelComponent } from './fuel/fuel.component';
 import { FormsModule } from '@angular/forms';
 import { FoodComponent } from './food/food.component';
 import { FunComponent } from './fun/fun.component';
-import { MainComponent } from './main/main.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthComponent } from './auth/auth.component';
 
@@ -19,7 +18,6 @@ import { AuthComponent } from './auth/auth.component';
     FuelComponent,
     FoodComponent,
     FunComponent,
-    MainComponent,
     AuthComponent
   ],
   imports: [
