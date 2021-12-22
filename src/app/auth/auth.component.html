@@ -4,7 +4,7 @@
       <div class="d-md-flex align-items-center justify-content-between">
         <div>
           <h3>Keep track of your spending in real time</h3>
-          <form #authForm="" (ngSubmit)="onSubmit(authForm)">
+          <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
             <div class="form-group">
               <label for="email">E-Mail</label>
               <input
@@ -31,11 +31,17 @@
               />
             </div>
             <br />
-            <button class="btn btn-success" type="submit" [disabled]="!authForm.valid">
-              Log In
-            </button> | <button class="btn btn-success" type="submit" [disabled]="!authForm.valid">
-              Sign Up
-            </button>
+            <button
+          class="btn btn-success"
+          type="submit"
+          [disabled]="!authForm.valid"
+        >
+          {{ isLoginMode ? 'Login' : 'Sign Up' }}
+        </button>
+        |
+        <button class="btn btn-success" (click)="onSwitchMode()" type="button">
+          Switch to {{ isLoginMode ? 'Sign Up' : 'Login' }}
+        </button>
           </form>
         </div>
         <img class="img-fluid d-none d-md-block" src="https://www.pngkey.com/png/full/827-8278294_money-money-beginning-of-the-gardening-season-transparent.png"alt=""/>
