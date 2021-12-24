@@ -4,6 +4,9 @@
       <div class="d-md-flex align-items-center justify-content-between">
         <div>
           <h3>Keep track of your spending in real time</h3>
+          <div class="alert alert-danger" *ngIf="error">
+            <p>{{ error }}</p>
+          </div>
           <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
             <div class="form-group">
               <label for="email">E-Mail</label>
