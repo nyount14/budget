@@ -8,8 +8,9 @@ import { FuelComponent } from './fuel/fuel.component';
 import { FormsModule } from '@angular/forms';
 import { FoodComponent } from './food/food.component';
 import { FunComponent } from './fun/fun.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthComponent } from './auth/auth.component';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -18,15 +19,16 @@ import { AuthComponent } from './auth/auth.component';
     FuelComponent,
     FoodComponent,
     FunComponent,
-    AuthComponent
+    AuthComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
