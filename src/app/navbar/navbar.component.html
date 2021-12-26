@@ -12,9 +12,7 @@
       </li>
     </a>
 
-
-
-    <button
+    <button *ngIf="isAuthenticated"
       #navbarToggler
       class="navbar-toggler"
       type="button"
@@ -28,7 +26,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div
+    <div *ngIf="isAuthenticated"
       class="collapse navbar-collapse"
       [ngClass]="{ show: isShown }"
       id="navbarSupportedContent"
