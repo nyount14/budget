@@ -1,8 +1,10 @@
 <<div class="container">
   <div class="row">
     <h1>Current Fuel Balance = {{ balance | currency }}</h1>
+    <hr>
     <div class="col-xs-12 col-md-6 col-md-offset-3">
       <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value)">
+        <br>
         <div class="form-group">
           <input
             type="number"
@@ -14,6 +16,7 @@
             name="amount"
           />
         </div>
+        <br>
         <div class="form-group">
           <textarea
             class="form-control"
@@ -23,6 +26,7 @@
             name="description"
           ></textarea>
         </div>
+        <br>
         <div class="form-group">
           <input
             type="date"
@@ -34,6 +38,7 @@
             name="date"
           />
         </div>
+        <br>
 
         <label>Transaction Type</label>
         <select
@@ -46,6 +51,7 @@
           <option selected value="credit">Credit</option>
           <option value="debit">Debit</option>
         </select>
+        <br>
 
         <button
           class="btn btn-primary"
