@@ -64,11 +64,25 @@
           </button>
         </form>
       </div>
-      <img
+      <div>
+        <li
+          class="list-group-item"
+          *ngFor="let transaction of loadedTransactions; let i = index"
+        >
+          <button class="btn-danger" (click)="onDelete(i)">Delete</button>
+          <div>
+            <p>{{ transaction.date }}</p>
+            <p>{{ transaction.description }}</p>
+            <h1>{{ transaction.amount | currency }}</h1>
+            <h1>{{ transaction.balance }}</h1>
+          </div>
+        </li>
+      </div>
+      <!-- <img
         class="img-fluid d-none d-md-block"
         src="https://www.pngkey.com/png/full/827-8278294_money-money-beginning-of-the-gardening-season-transparent.png"
         alt=""
-      />
+      /> -->
     </div>
   </div>
 </div>
@@ -138,7 +152,7 @@
           Submit Transaction
         </button>
       </form> -->
-      <br />
+      <!-- <br />
       <div>
         <li
           class="list-group-item"
@@ -159,7 +173,7 @@
             <h1>{{ transaction.balance }}</h1>
           </div>
         </li>
-      </div>
+      </div> -->
     <!-- </div>
   </div>
 </div> -->
