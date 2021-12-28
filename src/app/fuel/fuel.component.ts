@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Transaction } from '../transaction.model';
-import { exhaustMap, map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -10,52 +10,47 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./fuel.component.css'],
 })
 export class FuelComponent implements OnInit {
-  balance = 0;
-  amount;
+  balance: number = 0;
+  amount: number;
   loadedTransactions: Transaction[] = [];
   transactionType = '';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit() {
-    //return last transaction
-    // if (last transaction == 'credit') {
-    //   this.balance = this.balance + last transaction);
-    // } else {
-    //   this.balance = this.balance - last transaction);
+    this.http
+      .get<{ balance: number }>(
+        'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json'
+      )
+      .subscribe((balance) => {
+        return this.balance;
+      });
   }
 
   onCreatePost(postData) {
-    console.log(postData);
+    if (postData.transactionType == 'credit') {
+        this.balance = this.balance + parseInt(postData.amount);
+      } else {
+        this.balance = this.balance - parseInt(postData.amount);
+      }
     this.http
       .post<Transaction>(
         'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json',
-        postData
+        {...postData, balance: this.balance}
       )
       .subscribe((responseData) => {
-        if (postData.transactionType == 'credit') {
-          this.balance = this.balance + parseInt(postData.amount);
-        } else {
-          this.balance = this.balance - parseInt(postData.amount);
-        }
-
-    this.http.post<{ balance: number }>(
-      'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json',
-      postData
-    )
-    .subscribe((responseData) => {
-      console.log(this.balance);
-    })
-  });
+        console.log(responseData);
+      });
   }
 
-  // onDebit() {
-  //   this.balance = this.balance - this.amount;
-  // }
+  private fetchBalance() {
+    this.http
+      .get('https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json')
+      .subscribe(balance => {
+        console.log(balance);
+      });
+  }
 
-  // onUpdate(amount) {
-  //   this.amount = amount.target.value;
-  // }
   onReturn() {
     return this.http
       .get<Transaction>(
