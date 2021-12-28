@@ -75,13 +75,13 @@ export class FuelComponent implements OnInit {
       });
   }
 
-  private fetchBalance() {
-    this.http
-      .get('https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json')
-      .subscribe((balance) => {
-        console.log(balance);
-      });
-  }
+  // private fetchBalance() {
+  //   this.http
+  //     .get('https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json')
+  //     .subscribe((balance) => {
+  //       console.log(balance);
+  //     });
+  // }
 
   onReturn() {
     return this.http
@@ -105,6 +105,7 @@ export class FuelComponent implements OnInit {
         this.loadedTransactions = posts.reverse();
       });
   }
+
   onDelete(i) {
     this.loadedTransactions.splice(i, 1);
     this.overrideData(this.loadedTransactions);
@@ -119,4 +120,5 @@ export class FuelComponent implements OnInit {
       console.log(response);
     });
   }
+
 }

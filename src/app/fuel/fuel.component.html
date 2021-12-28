@@ -1,11 +1,83 @@
-<
-<div class="container">
+<div class="header">
+  <div class="container">
+    <div class="d-md-flex align-items-center justify-content-between">
+      <div>
+        <h1>Current Fuel Balance = {{ balance | currency }}</h1>
+        <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value)">
+          <br />
+          <div class="form-group">
+            <input
+              type="number"
+              class="form-control"
+              placeholder="amount"
+              id="amount"
+              required
+              ngModel
+              name="amount"
+            />
+          </div>
+
+          <br />
+          <div class="form-group">
+            <textarea
+              class="form-control"
+              id="description"
+              placeholder="description"
+              ngModel
+              name="description"
+            ></textarea>
+          </div>
+
+          <br />
+          <div class="form-group">
+            <input
+              type="date"
+              class="form-control"
+              placeholder="date"
+              id="date"
+              required
+              ngModel
+              name="date"
+            />
+          </div>
+
+          <br />
+          <label>Transaction Type</label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            name="transactionType"
+            id="transactionType"
+            ngModel
+          >
+            <option selected value="credit">Credit</option>
+            <option value="debit">Debit</option>
+          </select>
+
+          <br />
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="!postForm.valid"
+          >
+            Submit Transaction
+          </button>
+        </form>
+      </div>
+      <img
+        class="img-fluid d-none d-md-block"
+        src="https://www.pngkey.com/png/full/827-8278294_money-money-beginning-of-the-gardening-season-transparent.png"
+        alt=""
+      />
+    </div>
+  </div>
+</div>
+
+<!-- <div class="container">
   <div class="row">
     <h1>
       Current Fuel Balance =
-      {{
-        balance | currency
-      }}
+      {{ balance | currency }}
     </h1>
     <div class="col-xs-12 col-md-6 col-md-offset-3">
       <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value)">
@@ -65,9 +137,7 @@
         >
           Submit Transaction
         </button>
-      </form>
-      <br />
-      <button class="btn btn-primary" (click)="onReturn()">Return Transactions</button>
+      </form> -->
       <br />
       <div>
         <li
@@ -75,12 +145,21 @@
           *ngFor="let transaction of loadedTransactions; let i = index"
         >
           <button class="btn-danger" (click)="onDelete(i)">Delete</button>
-          <p>{{ transaction.date }}</p>
-          <p>{{ transaction.description }}</p>
-          <h1>{{ transaction.amount | currency }}</h1>
-          <h1>{{ transaction.balance }}</h1>
+          <div
+            style="
+              border: 1px solid black;
+              padding: 1%;
+              margin: 1% 0%;
+              width: 25%;
+            "
+          >
+            <p>{{ transaction.date }}</p>
+            <p>{{ transaction.description }}</p>
+            <h1>{{ transaction.amount | currency }}</h1>
+            <h1>{{ transaction.balance }}</h1>
+          </div>
         </li>
       </div>
-    </div>
+    <!-- </div>
   </div>
-</div>
+</div> -->
