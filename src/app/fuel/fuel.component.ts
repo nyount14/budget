@@ -10,7 +10,7 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./fuel.component.css'],
 })
 export class FuelComponent implements OnInit {
-  balance: number = 0;
+  balance: number;
   amount: number;
   loadedTransactions: Transaction[] = [];
   transactionType = '';
@@ -18,16 +18,29 @@ export class FuelComponent implements OnInit {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit() {
-    this.http
-      .get<{ balance: number }>(
-        'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json'
-      )
-      .subscribe((balance) => {
-        return this.balance;
-      });
+    this.onReturn()
+    // return this.http
+    //   .get<Transaction>(
+    //     'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json'
+    //   )
+    //   .pipe(
+    //     map((responseData) => {
+    //       const postsArray: Transaction[] = [];
+    //       for (const key in responseData) {
+    //         if (responseData.hasOwnProperty(key))
+    //           postsArray.push({ ...responseData[key], id: key });
+    //       }
+    //       return postsArray;
+    //     })
+    //   )
+    //   .subscribe((posts) => {
+    //     this.loadedTransactions = posts;
+    //   });
   }
 
   onCreatePost(postData) {
+    if(!this.balance) this.balance = 0;
+
     if (postData.transactionType == 'credit') {
         this.balance = this.balance + parseInt(postData.amount);
       } else {
@@ -40,7 +53,26 @@ export class FuelComponent implements OnInit {
       )
       .subscribe((responseData) => {
         console.log(responseData);
+        this.loadedTransactions.unshift({...postData, balance: this.balance});
       });
+
+    return this.http
+    .get<Transaction>(
+      'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json'
+    )
+    .pipe(
+      map((responseData) => {
+        const postsArray: Transaction[] = [];
+        for (const key in responseData) {
+          if (responseData.hasOwnProperty(key))
+            postsArray.push({ ...responseData[key], id: key });
+        }
+        return postsArray;
+      })
+    )
+    .subscribe((posts) => {
+      this.loadedTransactions = posts;
+    });
   }
 
   private fetchBalance() {
@@ -67,7 +99,10 @@ export class FuelComponent implements OnInit {
         })
       )
       .subscribe((posts) => {
-        this.loadedTransactions = posts;
+        this.balance = posts[posts.length - 1].balance;
+        console.log(posts);
+        console.log(this.balance);
+        this.loadedTransactions = posts.reverse();
       });
   }
 }
