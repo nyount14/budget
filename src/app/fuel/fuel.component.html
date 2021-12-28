@@ -72,8 +72,9 @@
       <div>
         <li
           class="list-group-item"
-          *ngFor="let transaction of loadedTransactions"
+          *ngFor="let transaction of loadedTransactions; let i = index"
         >
+          <button class="btn-danger" (click)="onDelete(i)">Delete</button>
           <p>{{ transaction.date }}</p>
           <p>{{ transaction.description }}</p>
           <h1>{{ transaction.amount | currency }}</h1>

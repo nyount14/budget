@@ -18,7 +18,7 @@ export class FuelComponent implements OnInit {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit() {
-    this.onReturn()
+    this.onReturn();
     // return this.http
     //   .get<Transaction>(
     //     'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json'
@@ -39,46 +39,46 @@ export class FuelComponent implements OnInit {
   }
 
   onCreatePost(postData) {
-    if(!this.balance) this.balance = 0;
+    if (!this.balance) this.balance = 0;
 
     if (postData.transactionType == 'credit') {
-        this.balance = this.balance + parseInt(postData.amount);
-      } else {
-        this.balance = this.balance - parseInt(postData.amount);
-      }
+      this.balance = this.balance + parseInt(postData.amount);
+    } else {
+      this.balance = this.balance - parseInt(postData.amount);
+    }
     this.http
       .post<Transaction>(
         'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json',
-        {...postData, balance: this.balance}
+        { ...postData, balance: this.balance }
       )
       .subscribe((responseData) => {
         console.log(responseData);
-        this.loadedTransactions.unshift({...postData, balance: this.balance});
+        this.loadedTransactions.unshift({ ...postData, balance: this.balance });
       });
 
     return this.http
-    .get<Transaction>(
-      'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json'
-    )
-    .pipe(
-      map((responseData) => {
-        const postsArray: Transaction[] = [];
-        for (const key in responseData) {
-          if (responseData.hasOwnProperty(key))
-            postsArray.push({ ...responseData[key], id: key });
-        }
-        return postsArray;
-      })
-    )
-    .subscribe((posts) => {
-      this.loadedTransactions = posts;
-    });
+      .get<Transaction>(
+        'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json'
+      )
+      .pipe(
+        map((responseData) => {
+          const postsArray: Transaction[] = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key))
+              postsArray.push({ ...responseData[key], id: key });
+          }
+          return postsArray;
+        })
+      )
+      .subscribe((posts) => {
+        this.loadedTransactions = posts;
+      });
   }
 
   private fetchBalance() {
     this.http
       .get('https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json')
-      .subscribe(balance => {
+      .subscribe((balance) => {
         console.log(balance);
       });
   }
@@ -104,5 +104,19 @@ export class FuelComponent implements OnInit {
         console.log(this.balance);
         this.loadedTransactions = posts.reverse();
       });
+  }
+  onDelete(i) {
+    this.loadedTransactions.splice(i, 1);
+    this.overrideData(this.loadedTransactions);
+  }
+
+  overrideData(loadedTransactions) {
+    this.http.put(
+      'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json',
+      loadedTransactions
+    )
+    .subscribe(response => {
+      console.log(response);
+    });
   }
 }
