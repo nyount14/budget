@@ -2,7 +2,6 @@
 <div class="container">
   <div class="row">
     <h1>Current Fuel Balance = {{ balance | currency }}</h1>
-    <hr />
     <div class="col-xs-12 col-md-6 col-md-offset-3">
       <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value)">
         <br />
@@ -63,7 +62,9 @@
         </button>
       </form>
       <br />
-      <button (click)="onReturn()" class="btn btn-primary">Return Transactions</button>
+      <button class="btn btn-primary" (click)="onReturn()">
+        Return Transactions
+      </button>
       <div>
         <!-- <p *ngif="loadedTransactions.length < 1" >No transaction history available</p>
         <ul class="list-group" *ngif="loadedTransactions.length >= 1"> -->

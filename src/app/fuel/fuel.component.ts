@@ -18,25 +18,35 @@ export class FuelComponent implements OnInit {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit() {
-
+    //return last transaction
+    // if (last transaction == 'credit') {
+    //   this.balance = this.balance + last transaction);
+    // } else {
+    //   this.balance = this.balance - last transaction);
   }
 
   onCreatePost(postData) {
     console.log(postData);
     this.http
-      .post<{ name: string }>(
+      .post<Transaction>(
         'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json',
         postData
       )
       .subscribe((responseData) => {
-        console.log(this.amount);
         if (postData.transactionType == 'credit') {
           this.balance = this.balance + parseInt(postData.amount);
         } else {
           this.balance = this.balance - parseInt(postData.amount);
         }
-        console.log(this.balance);
-      });
+
+    this.http.post<{ balance: number }>(
+      'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json',
+      postData
+    )
+    .subscribe((responseData) => {
+      console.log(this.balance);
+    })
+  });
   }
 
   // onDebit() {
@@ -46,7 +56,7 @@ export class FuelComponent implements OnInit {
   // onUpdate(amount) {
   //   this.amount = amount.target.value;
   // }
-  onReturn(){
+  onReturn() {
     return this.http
       .get<Transaction>(
         'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json'
