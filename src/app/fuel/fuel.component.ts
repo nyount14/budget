@@ -73,6 +73,8 @@ export class FuelComponent implements OnInit {
       .subscribe((posts) => {
         this.loadedTransactions = posts;
       });
+
+      postData.reset();
   }
 
   // private fetchBalance() {

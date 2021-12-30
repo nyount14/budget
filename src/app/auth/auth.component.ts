@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class AuthComponent {
   isLoginMode = true;
   error: string = null;
+  authCompleted = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -34,7 +35,7 @@ export class AuthComponent {
     authObs.subscribe(
       resData => {
         console.log(resData);
-        this.router.navigate(['/fuel'])
+        this.router.navigate(['/auth'])
      },
       error => {
         console.log(error);
@@ -43,5 +44,6 @@ export class AuthComponent {
     );
 
     form.reset();
+    this.authCompleted = !this.authCompleted
   }
 }
