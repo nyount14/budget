@@ -21,7 +21,7 @@ export class FuelComponent implements OnInit {
     this.onReturn();
     // return this.http
     //   .get<Transaction>(
-    //     'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json'
+    //     'https://money-manager-9ab10-default-rtdb.firebaseio.com/fuel.json'
     //   )
     //   .pipe(
     //     map((responseData) => {
@@ -48,7 +48,7 @@ export class FuelComponent implements OnInit {
     }
     this.http
       .post<Transaction>(
-        'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json',
+        'https://money-manager-9ab10-default-rtdb.firebaseio.com/fuel.json',
         { ...postData, balance: this.balance }
       )
       .subscribe((responseData) => {
@@ -58,7 +58,7 @@ export class FuelComponent implements OnInit {
 
     return this.http
       .get<Transaction>(
-        'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json'
+        'https://money-manager-9ab10-default-rtdb.firebaseio.com/fuel.json'
       )
       .pipe(
         map((responseData) => {
@@ -79,7 +79,7 @@ export class FuelComponent implements OnInit {
 
   // private fetchBalance() {
   //   this.http
-  //     .get('https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json')
+  //     .get('https://money-manager-9ab10-default-rtdb.firebaseio.com/fuel.json')
   //     .subscribe((balance) => {
   //       console.log(balance);
   //     });
@@ -88,7 +88,7 @@ export class FuelComponent implements OnInit {
   onReturn() {
     return this.http
       .get<Transaction>(
-        'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json'
+        'https://money-manager-9ab10-default-rtdb.firebaseio.com/fuel.json'
       )
       .pipe(
         map((responseData) => {
@@ -115,7 +115,7 @@ export class FuelComponent implements OnInit {
 
   overrideData(loadedTransactions) {
     this.http.put(
-      'https://money-manager-9ab10-default-rtdb.firebaseio.com/posts.json',
+      'https://money-manager-9ab10-default-rtdb.firebaseio.com/fuel.json',
       loadedTransactions
     )
     .subscribe(response => {

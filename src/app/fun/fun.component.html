@@ -1,15 +1,107 @@
-<div class="container">
+<div class="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1>Current<span class="text-warning" style="font-size: 40px;"> Fun </span>Balance = <span style="font-size: 40px;">{{ balance | currency }}</span></h1>
+        <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value)">
+          <br />
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-4">
+                <div class="form-group">
+                  <input
+                    type="date"
+                    class="form-control"
+                    placeholder="date"
+                    id="date"
+                    required
+                    ngModel
+                    name="date"
+                  />
+                </div>
+              </div>
 
-  <h1>Current Fun Balance = {{balance | currency}}</h1>
-  <div class="input-group mb-3">
-    <input
-      type="text"
-      placeholder="amount"
-      (input)="onUpdate($event)"
-      >
-  </div>
-  <div>
-    <button type="button" class="btn btn-success" (click)="onCredit()">Credit</button>
-    <button type="button" class="btn btn-danger" (click)="onDebit()">Debit</button>
+              <div class="col-xl-4">
+                <div class="form-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="amount"
+                    id="amount"
+                    required
+                    ngModel
+                    name="amount"
+                  />
+                </div>
+              </div>
+
+              <div class="col-xl-4">
+                <!-- <label>Transaction Type</label> -->
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  name="transactionType"
+                  id="transactionType"
+                  ngModel
+                >
+                  <option selected value="credit">Credit</option>
+                  <option value="debit">Debit</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <br />
+          <div class="form-group">
+            <textarea
+              class="form-control"
+              id="description"
+              required
+              placeholder="description"
+              ngModel
+              name="description"
+            ></textarea>
+          </div>
+
+          <br />
+
+          <br />
+          <button
+            class="btn btn-success"
+            type="submit"
+            [disabled]="!postForm.valid"
+          >
+            Submit Transaction
+          </button>
+        </form>
+      </div>
+      <br />
+      <div class="col-md-6">
+        <h1>Recent Transactions</h1>
+        <div
+          class="card border-success mb-3"
+          style="padding: 20px"
+          *ngFor="let transaction of loadedTransactions; let i = index"
+        >
+          <div>
+            <div class="card-header float-start" style="font-size: 20px">
+              {{ transaction.date }}
+            </div>
+            <div class="btn btn-danger float-end" (click)="onDelete()">
+              Delete
+            </div>
+            <br />
+            <br />
+            <div class="card-body">
+              <h5 class="card-title" style="font-size: 50px">
+                {{ transaction.amount | currency }}
+              </h5>
+            </div>
+            <em class="card-text">{{ transaction.description }}</em>
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
   </div>
 </div>

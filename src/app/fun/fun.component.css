@@ -1,0 +1,11 @@
+h1{
+  padding: 60px;
+  font-size: 30px;
+  color: white
+ }
+
+.header {
+  text-align: center;
+  background: linear-gradient(black,white );
+  color: black
+};
