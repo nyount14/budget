@@ -9,3 +9,7 @@ h1{
   background: linear-gradient(black,white );
   color: black
 };
+
+.background {
+  background: green
+}

@@ -43,9 +43,9 @@ export class FunComponent implements OnInit {
     if (!this.balance) this.balance = 0;
 
     if (postData.transactionType == 'credit') {
-      this.balance = this.balance + parseInt(postData.amount);
+      this.balance = this.balance + parseFloat(postData.amount);
     } else {
-      this.balance = this.balance - parseInt(postData.amount);
+      this.balance = this.balance - parseFloat(postData.amount);
     }
     this.http
       .post<Transaction>(
@@ -122,6 +122,10 @@ export class FunComponent implements OnInit {
     .subscribe(response => {
       console.log(response);
     });
+  }
+
+  getColor(){
+    return this.transactionType == 'debit' ? 'red' : 'green';
   }
 
 }

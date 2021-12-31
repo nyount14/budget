@@ -43,9 +43,9 @@ export class FoodComponent implements OnInit {
     if (!this.balance) this.balance = 0;
 
     if (postData.transactionType == 'credit') {
-      this.balance = this.balance + parseInt(postData.amount);
+      this.balance = this.balance + parseFloat(postData.amount);
     } else {
-      this.balance = this.balance - parseInt(postData.amount);
+      this.balance = this.balance - parseFloat(postData.amount);
     }
     this.http
       .post<Transaction>(
