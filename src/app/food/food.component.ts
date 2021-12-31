@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Transaction } from '../transaction.model';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-food',
@@ -15,6 +16,7 @@ export class FoodComponent implements OnInit {
   amount: number;
   loadedTransactions: Transaction[] = [];
   transactionType = '';
+  @ViewChild('ngForm') inputForm: NgForm;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -57,7 +59,7 @@ export class FoodComponent implements OnInit {
         this.loadedTransactions.unshift({ ...postData, balance: this.balance });
       });
 
-    return this.http
+      return this.http
       .get<Transaction>(
         'https://money-manager-9ab10-default-rtdb.firebaseio.com/food.json'
       )
@@ -75,7 +77,7 @@ export class FoodComponent implements OnInit {
         this.loadedTransactions = posts;
       });
 
-      postData.reset();
+
   }
 
   // private fetchBalance() {
