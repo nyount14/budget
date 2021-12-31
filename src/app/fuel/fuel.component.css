@@ -6,7 +6,7 @@ h1{
 
 .header {
   text-align: center;
-  background: linear-gradient(black,white );
+  background: linear-gradient(180deg, black, white);
   color: black
 };
 
