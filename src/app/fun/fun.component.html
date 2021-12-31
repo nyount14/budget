@@ -82,18 +82,19 @@
       <br />
       <div class="col-md-6">
         <h1>Recent Transactions</h1>
+        <p style="font-size: 20px; color: white">**Do not delete top most transaction**</p>
+
         <div
           class="card border-success mb-3"
           style="padding: 20px"
           *ngFor="let transaction of loadedTransactions; let i = index"
         >
           <div>
-            <div class="card-header float-start" style="font-size: 20px">
+            <div class="card-header float-start">
               {{ transaction.date }}
             </div>
             <div
               class="card-header float-start"
-              style="font-size: 20px"
             >
               {{ transaction.transactionType }}
             </div>
