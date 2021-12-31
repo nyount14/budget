@@ -78,6 +78,7 @@ export class FoodComponent implements OnInit {
       });
 
 
+
   }
 
   // private fetchBalance() {
@@ -124,6 +125,7 @@ export class FoodComponent implements OnInit {
     .subscribe(response => {
       console.log(response);
     });
+
   }
 
 }
