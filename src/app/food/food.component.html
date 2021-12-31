@@ -84,29 +84,28 @@
         >
           <div>
             <div class="card-header float-start">
-              {{ transaction.date }}
+              Transaction Date: <span style="font-size: 20px">{{ transaction.date }}</span>
             </div>
-            <div
-              class="card-header float-start"
-            >
-              {{ transaction.transactionType }}
-            </div>
-            <div class="btn btn-danger float-end" (click)="onDelete()">
+            <div class="btn btn-danger float-end" (click)="onDelete(i)">
               Delete
             </div>
-            <br />
-            <br />
+            <br>
+            <br>
             <div class="card-body">
-              <h5 class="card-title" style="font-size: 50px">
+              <span>{{ transaction.transactionType }}<h5 class="card-title" style="font-size: 50px">
                 {{ transaction.amount | currency }}
-              </h5>
+              </h5></span>
             </div>
             <em class="card-text">{{ transaction.description }}</em>
+            <br>
+            <div class="card-footer float-start">
+              Ending Balance: {{ transaction.balance | currencyS }}
+            </div>
           </div>
         </div>
       </div>
-      <br />
     </div>
   </div>
 </div>
+
 
