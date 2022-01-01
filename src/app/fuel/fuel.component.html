@@ -82,10 +82,9 @@
           style="padding: 20px"
           *ngFor="let transaction of loadedTransactions; let i = index"
         >
-          <div>
-            <div class="card-header float-start">
-              Transaction Date: <span style="font-size: 20px">{{ transaction.date }}</span>
-            </div>
+        <div>
+          <div class="card-header float-start" style="font-size: 20px">{{ transaction.date }}
+          </div>
             <div class="card-header float-end">
               Ending Balance: {{ transaction.balance | currency }}
             </div>
