@@ -4,6 +4,8 @@ import { Transaction } from '../transaction.model';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { NgForm } from '@angular/forms';
+import { ModalComponent } from '../modal/modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-food',
@@ -17,31 +19,21 @@ export class FoodComponent implements OnInit {
   loadedTransactions: Transaction[] = [];
   transactionType = '';
   @ViewChild('ngForm') inputForm: NgForm;
+  question: boolean= false;
+  //
+  index;
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+
+  constructor(private http: HttpClient,
+              private authService: AuthService,
+              private router: Router) {}
 
   ngOnInit() {
     this.onReturn();
-    // return this.http
-    //   .get<Transaction>(
-    //     'https://money-manager-9ab10-default-rtdb.firebaseio.com/food.json'
-    //   )
-    //   .pipe(
-    //     map((responseData) => {
-    //       const postsArray: Transaction[] = [];
-    //       for (const key in responseData) {
-    //         if (responseData.hasOwnProperty(key))
-    //           postsArray.push({ ...responseData[key], id: key });
-    //       }
-    //       return postsArray;
-    //     })
-    //   )
-    //   .subscribe((posts) => {
-    //     this.loadedTransactions = posts;
-    //   });
   }
 
-  onCreatePost(postData) {
+  onCreatePost(postForm) {
+    const postData = postForm.value;
     if (!this.balance) this.balance = 0;
 
     if (postData.transactionType == 'credit') {
@@ -59,7 +51,7 @@ export class FoodComponent implements OnInit {
         this.loadedTransactions.unshift({ ...postData, balance: this.balance });
       });
 
-      return this.http
+      this.http
       .get<Transaction>(
         'https://money-manager-9ab10-default-rtdb.firebaseio.com/food.json'
       )
@@ -77,17 +69,9 @@ export class FoodComponent implements OnInit {
         this.loadedTransactions = posts;
       });
 
-
-
+      postForm.reset();
   }
 
-  // private fetchBalance() {
-  //   this.http
-  //     .get('https://money-manager-9ab10-default-rtdb.firebaseio.com/food.json')
-  //     .subscribe((balance) => {
-  //       console.log(balance);
-  //     });
-  // }
 
   onReturn() {
     return this.http
@@ -112,10 +96,25 @@ export class FoodComponent implements OnInit {
       });
   }
 
-  onDelete(i) {
-    this.loadedTransactions.splice(i, 1);
-    this.overrideData(this.loadedTransactions);
+  onClick(i){
+    this.index = i
+    this.question = true;
   }
+
+  onNo(){
+    this.question = false;
+  }
+
+  onYes(){
+    this.loadedTransactions.splice(this.index, 1);
+    this.overrideData(this.loadedTransactions);
+    this.question = false;
+  }
+
+  // onDelete(i) {
+  //   this.loadedTransactions.splice(i, 1);
+  //   this.overrideData(this.loadedTransactions);
+  // }
 
   overrideData(loadedTransactions) {
     this.http.put(

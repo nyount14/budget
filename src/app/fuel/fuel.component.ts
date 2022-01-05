@@ -19,23 +19,6 @@ export class FuelComponent implements OnInit {
 
   ngOnInit() {
     this.onReturn();
-    // return this.http
-    //   .get<Transaction>(
-    //     'https://money-manager-9ab10-default-rtdb.firebaseio.com/fuel.json'
-    //   )
-    //   .pipe(
-    //     map((responseData) => {
-    //       const postsArray: Transaction[] = [];
-    //       for (const key in responseData) {
-    //         if (responseData.hasOwnProperty(key))
-    //           postsArray.push({ ...responseData[key], id: key });
-    //       }
-    //       return postsArray;
-    //     })
-    //   )
-    //   .subscribe((posts) => {
-    //     this.loadedTransactions = posts;
-    //   });
   }
 
   onCreatePost(postData) {
@@ -56,7 +39,7 @@ export class FuelComponent implements OnInit {
         this.loadedTransactions.unshift({ ...postData, balance: this.balance });
       });
 
-    return this.http
+    this.http
       .get<Transaction>(
         'https://money-manager-9ab10-default-rtdb.firebaseio.com/fuel.json'
       )
@@ -77,13 +60,6 @@ export class FuelComponent implements OnInit {
       postData.reset();
   }
 
-  // private fetchBalance() {
-  //   this.http
-  //     .get('https://money-manager-9ab10-default-rtdb.firebaseio.com/fuel.json')
-  //     .subscribe((balance) => {
-  //       console.log(balance);
-  //     });
-  // }
 
   onReturn() {
     return this.http

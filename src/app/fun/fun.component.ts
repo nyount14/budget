@@ -20,23 +20,6 @@ export class FunComponent implements OnInit {
 
   ngOnInit() {
     this.onReturn();
-    // return this.http
-    //   .get<Transaction>(
-    //     'https://money-manager-9ab10-default-rtdb.firebaseio.com/fun.json'
-    //   )
-    //   .pipe(
-    //     map((responseData) => {
-    //       const postsArray: Transaction[] = [];
-    //       for (const key in responseData) {
-    //         if (responseData.hasOwnProperty(key))
-    //           postsArray.push({ ...responseData[key], id: key });
-    //       }
-    //       return postsArray;
-    //     })
-    //   )
-    //   .subscribe((posts) => {
-    //     this.loadedTransactions = posts;
-    //   });
   }
 
   onCreatePost(postData) {
@@ -78,13 +61,6 @@ export class FunComponent implements OnInit {
       postData.reset();
   }
 
-  // private fetchBalance() {
-  //   this.http
-  //     .get('https://money-manager-9ab10-default-rtdb.firebaseio.com/fun.json')
-  //     .subscribe((balance) => {
-  //       console.log(balance);
-  //     });
-  // }
 
   onReturn() {
     return this.http
