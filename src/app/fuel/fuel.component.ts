@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Transaction } from '../transaction.model';
 import { map } from 'rxjs/operators';
@@ -14,6 +14,8 @@ export class FuelComponent implements OnInit {
   amount: number;
   loadedTransactions: Transaction[] = [];
   transactionType = '';
+  question: boolean= false;
+  index;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -21,7 +23,8 @@ export class FuelComponent implements OnInit {
     this.onReturn();
   }
 
-  onCreatePost(postData) {
+  onCreatePost(postForm) {
+    const postData = postForm.value;
     if (!this.balance) this.balance = 0;
 
     if (postData.transactionType == 'credit') {
@@ -84,9 +87,19 @@ export class FuelComponent implements OnInit {
       });
   }
 
-  onDelete(i) {
-    this.loadedTransactions.splice(i, 1);
+  onClick(i){
+    this.index = i
+    this.question = true;
+  }
+
+  onNo(){
+    this.question = false;
+  }
+
+  onYes(){
+    this.loadedTransactions.splice(this.index, 1);
     this.overrideData(this.loadedTransactions);
+    this.question = false;
   }
 
   overrideData(loadedTransactions) {

@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Transaction } from '../transaction.model';
 import { map } from 'rxjs/operators';
@@ -15,6 +15,8 @@ export class FunComponent implements OnInit {
   amount: number;
   loadedTransactions: Transaction[] = [];
   transactionType = '';
+  question: boolean = false;
+  index;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -22,7 +24,8 @@ export class FunComponent implements OnInit {
     this.onReturn();
   }
 
-  onCreatePost(postData) {
+  onCreatePost(postForm) {
+    const postData = postForm.value;
     if (!this.balance) this.balance = 0;
 
     if (postData.transactionType == 'credit') {
@@ -40,7 +43,7 @@ export class FunComponent implements OnInit {
         this.loadedTransactions.unshift({ ...postData, balance: this.balance });
       });
 
-    return this.http
+    this.http
       .get<Transaction>(
         'https://money-manager-9ab10-default-rtdb.firebaseio.com/fun.json'
       )
@@ -55,10 +58,11 @@ export class FunComponent implements OnInit {
         })
       )
       .subscribe((posts) => {
-        this.loadedTransactions = posts;
+        this.loadedTransactions = posts.reverse();
       });
 
-      postData.reset();
+    postForm.reset();
+
   }
 
 
@@ -85,9 +89,19 @@ export class FunComponent implements OnInit {
       });
   }
 
-  onDelete(i) {
-    this.loadedTransactions.splice(i, 1);
+  onClick(i) {
+    this.index = i;
+    this.question = true;
+  }
+
+  onNo() {
+    this.question = false;
+  }
+
+  onYes() {
+    this.loadedTransactions.splice(this.index, 1);
     this.overrideData(this.loadedTransactions);
+    this.question = false;
   }
 
   overrideData(loadedTransactions) {
@@ -100,8 +114,8 @@ export class FunComponent implements OnInit {
     });
   }
 
-  getColor(){
-    return this.transactionType == 'debit' ? 'red' : 'green';
-  }
+  // getColor(){
+  //   return this.transactionType == 'debit' ? 'red' : 'green';
+  // }
 
 }

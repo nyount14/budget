@@ -4,8 +4,8 @@
       <div class="col-md-6">
         <h1>Current<span class="text-warning" style="font-size: 40px;"> Fun </span>Balance = <span style="font-size: 40px;">{{ balance | currency }}</span></h1>
         <p style="font-size: 20px; color: white">Add a transaction below</p>
-        <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value)">
-          <br />
+        <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm)">
+          <br>
           <div class="container">
             <div class="row">
               <div class="col-xl-4">
@@ -51,7 +51,7 @@
               </div>
             </div>
           </div>
-          <br />
+          <br>
           <div class="form-group">
             <label style= "color: white">Description</label>
             <textarea
@@ -72,7 +72,7 @@
           </button>
         </form>
       </div>
-      <br />
+      <br>
       <div class="col-md-6">
         <h1>Recent Transactions</h1>
         <p style="font-size: 20px; color: white">**Do not delete top most transaction**</p>
@@ -97,12 +97,14 @@
             </div>
             <em class="card-text">{{ transaction.description }}</em>
             <br>
-            <div class="btn btn-danger float-end" (click)="onDelete(i)">
+            <button class="btn btn-danger float-end" (click)="onClick(i)">
               Delete
-            </div>
+            </button>
           </div>
         </div>
+        <app-modal *ngIf="question" (no)="onNo()" (yes)="onYes()"></app-modal>
       </div>
     </div>
   </div>
 </div>
+

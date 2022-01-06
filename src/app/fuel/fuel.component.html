@@ -4,7 +4,7 @@
       <div class="col-md-6">
         <h1>Current<span class="text-warning" style="font-size: 40px;"> Fuel </span>Balance = <span style="font-size: 40px;">{{ balance | currency }}</span></h1>
         <p style="font-size: 20px; color: white">Add a transaction below</p>
-        <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value)">
+        <form #postForm="ngForm" (ngSubmit)="onCreatePost(postForm)">
           <br />
           <div class="container">
             <div class="row">
@@ -97,11 +97,12 @@
             </div>
             <em class="card-text">{{ transaction.description }}</em>
             <br>
-            <button class="btn btn-danger float-end" (click)="onDelete(i)">
+            <button class="btn btn-danger float-end" (click)="onClick(i)">
               Delete
             </button>
           </div>
         </div>
+        <app-modal *ngIf="question" (no)="onNo()" (yes)="onYes()"></app-modal>
       </div>
     </div>
   </div>
