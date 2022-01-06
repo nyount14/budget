@@ -81,7 +81,7 @@ export class FuelComponent implements OnInit {
       )
       .subscribe((posts) => {
         this.balance = posts[posts.length - 1].balance;
-        console.log(posts);
+        console.table(posts);
         console.log(this.balance);
         this.loadedTransactions = posts.reverse();
       });
